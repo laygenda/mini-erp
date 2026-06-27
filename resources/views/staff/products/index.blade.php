@@ -47,9 +47,20 @@
                                         {{ $item->stock }} Unit
                                     </span>
                                 </td>
-                                <td class="py-3 px-6 text-center">
-                                    <span class="text-blue-500 cursor-pointer hover:underline mx-1">Edit</span>
-                                    <span class="text-red-500 cursor-pointer hover:underline mx-1">Hapus</span>
+                                <td class="py-3 px-6 text-center flex justify-center items-center space-x-3">
+    
+                                    <a href="{{ route('staff.products.edit', $item->id) }}" class="text-blue-500 hover:text-blue-700 hover:underline">
+                                        Edit
+                                    </a>
+
+                                    <form action="{{ route('staff.products.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk ini secara permanen?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-500 hover:text-red-700 hover:underline">
+                                            Hapus
+                                        </button>
+                                    </form>
+
                                 </td>
                             </tr>
                             @endforeach

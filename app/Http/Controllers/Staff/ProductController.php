@@ -63,24 +63,41 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        //
+        // Variabel $product sudah otomatis berisi data dari database berdasarkan ID di URL
+        return view('staff.products.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        // 1. Validasi Input (Sama seperti saat Create)
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'stock' => 'required|numeric|min:0',
+        ]);
+
+        // 2. Perbarui data di Database
+        $product->update($validatedData);
+
+        // 3. Kembalikan ke halaman daftar dengan pesan sukses
+        return redirect()->route('staff.dashboard')->with('success', 'Data produk berhasil diperbarui!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        //
+        // Hapus baris data tersebut
+        $product->delete();
+
+        // Kembalikan ke halaman daftar
+        return redirect()->route('staff.dashboard')->with('success', 'Produk berhasil dihapus dari sistem.');
     }
 }
