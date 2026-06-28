@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Staff\ProductController;
+use App\Http\Controllers\Reseller\OrderController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -49,6 +50,10 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->grou
     
     // Rute untuk fitur CRUD produk lainnya (tambah, edit, hapus)
     Route::resource('products', ProductController::class);
+
+    // RUTE BARU: Manajemen Pesanan
+    Route::get('/orders', [\App\Http\Controllers\Staff\OrderController::class, 'index'])->name('orders.index');
+    Route::post('/orders/{order}/approve', [\App\Http\Controllers\Staff\OrderController::class, 'approve'])->name('orders.approve');
 });
 
 
@@ -58,9 +63,12 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->grou
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:reseller'])->prefix('reseller')->name('reseller.')->group(function () {
-    Route::get('/dashboard', function () {
-        return '<h1>Selamat Datang di Dasbor Reseller</h1><p>Katalog Pesanan akan ada di sini.</p>';
-    })->name('dashboard');
+    
+    // Halaman Dasbor (Katalog Produk)
+    Route::get('/dashboard', [OrderController::class, 'index'])->name('dashboard');
+    
+    // Rute untuk memproses pengiriman formulir pesanan (Checkout)
+    Route::post('/checkout', [OrderController::class, 'store'])->name('checkout');
 });
 
 

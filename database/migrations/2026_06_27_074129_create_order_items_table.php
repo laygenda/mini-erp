@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
+            
+            // Relasi ke tabel orders (Kepala Nota)
+            $table->foreignId('order_id')->constrained()->cascadeOnDelete();
+            
+            // Relasi ke tabel products (Barang yang dibeli)
+            $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            
+            // Jumlah barang dan harga saat transaksi terjadi
+            $table->integer('quantity');
+            $table->integer('price');
+            
             $table->timestamps();
         });
     }
