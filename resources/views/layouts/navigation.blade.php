@@ -12,9 +12,28 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+    
+                    @if(Auth::user()->role === 'owner')
+                        <x-nav-link :href="route('owner.dashboard')" :active="request()->routeIs('owner.dashboard')">
+                            {{ __('Dasbor Eksekutif') }}
+                        </x-nav-link>
+                    @endif
+
+                    @if(Auth::user()->role === 'staff')
+                        <x-nav-link :href="route('staff.dashboard')" :active="request()->routeIs('staff.dashboard')">
+                            {{ __('Inventaris Gudang') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('staff.orders.index')" :active="request()->routeIs('staff.orders.*')">
+                            {{ __('Pesanan Masuk') }}
+                        </x-nav-link>
+                    @endif
+
+                    @if(Auth::user()->role === 'reseller')
+                        <x-nav-link :href="route('reseller.dashboard')" :active="request()->requestUri === '/reseller/dashboard'">
+                            {{ __('Katalog Pesanan') }}
+                        </x-nav-link>
+                    @endif
+
                 </div>
             </div>
 
