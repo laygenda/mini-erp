@@ -1,27 +1,56 @@
-*.log
-.DS_Store
+# =====================================================================
+# LARAVEL .GITIGNORE STANDARD & OPTIMIZED
+# =====================================================================
+
+# ---------------------------------------------------------------------
+# 1. Kredensial & Lingkungan (SECURITY)
+# ---------------------------------------------------------------------
 .env
 .env.backup
 .env.production
-.phpactor.json
-.phpunit.result.cache
-/.codex
-/.cursor/
-/.idea
-/.nova
-/.phpunit.cache
-/.vscode
-/.zed
+*.key
 /auth.json
-/node_modules
-/public/build
-/public/fonts-manifest.dev.json
+
+# ---------------------------------------------------------------------
+# 2. Dependensi (PACKAGE MANAGERS)
+# ---------------------------------------------------------------------
+/vendor/
+/node_modules/
+
+# ---------------------------------------------------------------------
+# 3. File Log, Cache & Storage Internal
+# ---------------------------------------------------------------------
+*.log
+/.phpunit.cache
+.phpunit.result.cache
 /public/hot
 /public/storage
 /storage/*.key
-/storage/pail
-/vendor
+/storage/pail/
+
+# ---------------------------------------------------------------------
+# 4. Build & Compiled Assets (Frontend)
+# ---------------------------------------------------------------------
+/public/build/
+/public/fonts-manifest.dev.json
+
+# ---------------------------------------------------------------------
+# 5. Konfigurasi IDE & Sistem Operasi
+# ---------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+/.vscode/
+/.idea/
+/.cursor/
+/.nova/
+/.zed/
+/.codex/
+.phpactor.json
+
+# ---------------------------------------------------------------------
+# 6. File Bawaan Server & Helper Lokal
+# ---------------------------------------------------------------------
 _ide_helper.php
 Homestead.json
 Homestead.yaml
-Thumbs.db

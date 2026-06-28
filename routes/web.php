@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Staff\ProductController;
 use App\Http\Controllers\Reseller\OrderController;
+use App\Http\Controllers\Owner\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -32,9 +33,10 @@ Route::get('/dashboard', function () {
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role:owner'])->prefix('owner')->name('owner.')->group(function () {
-    Route::get('/dashboard', function () {
-        return '<h1>Selamat Datang di Dasbor Owner</h1><p>Halaman Laporan Keuangan akan ada di sini.</p>';
-    })->name('dashboard');
+    
+    // Halaman Dasbor Utama Eksekutif
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    
 });
 
 
